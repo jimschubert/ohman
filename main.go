@@ -85,6 +85,7 @@ func (c *CLI) Run(_ *Context) error {
 			for _, d := range duplicates {
 				results = append(results, fmt.Sprintf("  - Duplicate: %s", d))
 			}
+			continue
 		}
 
 		if c.Delete {

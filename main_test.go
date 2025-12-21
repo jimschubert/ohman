@@ -120,6 +120,38 @@ func TestCLI_Run_DryRun_FindsDuplicates(t *testing.T) {
 	}
 }
 
+func TestCLI_Run_DryRunWithDelete_DoesNotDelete(t *testing.T) {
+	t.Parallel()
+	dir := setupTestDir(t)
+
+	// Create original and duplicate files
+	createTestFile(t, filepath.Join(dir, "book.pdf"), "original content")
+	createTestFile(t, filepath.Join(dir, "book (1).pdf"), "duplicate 1")
+	createTestFile(t, filepath.Join(dir, "book (2).pdf"), "duplicate 2")
+
+	cli := &CLI{
+		Path:   []string{dir},
+		DryRun: true,
+		Delete: true,
+		Regex:  defaultRegex,
+	}
+
+	if err := cli.Run(nil); err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	// Verify files still exist (dry run shouldn't delete anything)
+	if !fileExists(filepath.Join(dir, "book.pdf")) {
+		t.Error("original file should still exist after dry run")
+	}
+	if !fileExists(filepath.Join(dir, "book (1).pdf")) {
+		t.Error("duplicate 1 should still exist after dry run")
+	}
+	if !fileExists(filepath.Join(dir, "book (2).pdf")) {
+		t.Error("duplicate 2 should still exist after dry run")
+	}
+}
+
 func TestCLI_Run_DryRun_NoDuplicates(t *testing.T) {
 	t.Parallel()
 	dir := setupTestDir(t)

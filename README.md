@@ -8,6 +8,14 @@
 > Oh, Manning. You don't need to create so many duplicate files in my Dropbox.
 > So many, in fact, that I need to write a tool to clean it up.
 
+## ⚠️ WARNING
+
+**THIS TOOL DELETES FILES. USE AT YOUR OWN RISK.**
+
+This software is provided "as is", without warranty of any kind, express or implied. The authors are not responsible for any data loss, file corruption, or other damages resulting from the use of this tool. Always backup your files before running any delete operations, and test with `--dryrun` first.
+
+---
+
 A small CLI tool to find and optionally remove duplicate files that follow a common "name (n).ext" pattern (for example `book.pdf`, `book (1).pdf`). It's intended to help clean up duplicate files created by sync services, downloads, or other processes.
 
 ## Features

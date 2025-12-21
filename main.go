@@ -19,13 +19,13 @@ var (
 
 type CLI struct {
 	Version          kong.VersionFlag `help:"Show version information."`
-	DryRun           bool             `help:"List duplicate files."`
-	Delete           bool             `help:"Delete duplicate files."`
-	Inverse          bool             `help:"Inverse deletion, keeping only the newest file."`
+	DryRun           bool             `help:"[SAFE MODE] List duplicate files without making changes. Always test with this first!"`
+	Delete           bool             `help:"⚠️  WARNING: Permanently delete duplicate files. USE AT YOUR OWN RISK. No warranty provided."`
+	Inverse          bool             `help:"Inverse deletion, keeping only the newest file and deleting older ones."`
 	InverseAndRename bool             `name:"inverse-and-rename" help:"Inverse deletion and rename, keeping only the newest file and renaming it."`
-	Out              string           `name:"out" short:"o" help:"Output file." type:"path"`
+	Out              string           `name:"out" short:"o" help:"Output file for results." type:"path"`
 	Path             []string         `arg:"" name:"path" help:"Path(s) to search for duplicates." type:"path"`
-	Regex            string           `name:"regex" help:"Custom regex for finding duplicates. MODIFY AT YOUR OWN RISK." default:"(.+)\\s\\((\\d+)\\)\\.(pdf|mobi|mp4|epub|wav|mp3)$"`
+	Regex            string           `name:"regex" help:"⚠️  Custom regex for finding duplicates. USE AT YOUR OWN RISK - test with --dry-run first!" default:"(.+)\\s\\((\\d+)\\)\\.(pdf|mobi|mp4|epub|wav|mp3)$"`
 }
 
 var cli CLI
@@ -158,6 +158,14 @@ func outputResults(filename string, results string) error {
 
 func main() {
 	ctx := kong.Parse(&cli,
+		kong.Name("ohman"),
+		kong.Description(`⚠️  WARNING: This tool deletes files permanently. USE AT YOUR OWN RISK.
+
+This software is provided "as-is", without warranty of any kind.
+
+Always backup your files and test with --dryrun first.
+`),
+		kong.UsageOnError(),
 		kong.Vars{
 			"version": version,
 			"commit":  commit,

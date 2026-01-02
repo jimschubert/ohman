@@ -7,7 +7,7 @@ permissions:
 
 jobs: 
   build:
-    uses: jimschubert/.workflows/. github/workflows/go-pr. yml@main
+    uses: jimschubert/.workflows/.github/workflows/go-pr.yml@main
     with: 
       go-version-file: go.mod
       golangci-lint-version: v2.7.2

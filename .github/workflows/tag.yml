@@ -1,4 +1,4 @@
-name: Tag Next Version
+name: Tag Next Version (does not trigger build.yml)
 
 on:
   workflow_dispatch:

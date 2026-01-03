@@ -26,5 +26,5 @@ jobs:
     uses: jimschubert/.workflows/.github/workflows/tag-next-version.yml@main
     with:
       bump: ${{ github.event.inputs.bump }}
-      create_release: ${{ github.event.inputs.create_release }}
+      create_release: ${{ github.event.inputs.create_release == 'true' }}
     secrets: inherit

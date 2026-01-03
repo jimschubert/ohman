@@ -18,5 +18,5 @@ jobs:
     with:
       go-version-file: go.mod
       golangci-lint-version: v2.7.2
-      changelog-config:  .github/changelog. yml
+      changelog-config:  .github/changelog.yml
     secrets: inherit
